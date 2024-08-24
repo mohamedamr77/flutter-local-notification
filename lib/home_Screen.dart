@@ -55,6 +55,23 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.red,
                 ),
               ),
+            ),
+
+            ListTile(
+              onTap: () {
+                LocalNotificationService.showScheduledNotification();
+                },
+              leading: const Icon(Icons.notifications),
+              title: const Text("Scheduled Notification"),
+              trailing: IconButton(
+                onPressed: () {
+                  LocalNotificationService.cancelNotification(id: 1);
+                },
+                icon: const Icon(
+                  Icons.notifications_off,
+                  color: Colors.red,
+                ),
+              ),
             )
           ],
         ),
