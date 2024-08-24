@@ -16,7 +16,18 @@ class LocalNotificationService {
          onDidReceiveBackgroundNotificationResponse: (details) { },
      );
     }
-    //moamr
+
+    //Basic notification
+
+    static void showBasicNotification()async{
+    NotificationDetails details= const NotificationDetails(
+      android: AndroidNotificationDetails(
+           "id 1",
+           "basic notification ",
+      ),
+    );
+    await  flutterLocalNotificationsPlugin.show(0, "Basic Notification", "Body Notification", details);
+     }
 
 
 }
