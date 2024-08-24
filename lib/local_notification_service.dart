@@ -23,12 +23,19 @@ class LocalNotificationService {
     static void showBasicNotification()async{
     NotificationDetails details= const NotificationDetails(
       android: AndroidNotificationDetails(
-           "id 1",
-           "basic notification ",
-      ),
+        // line 27 and 28 to show notification above screen
+        //delte storage before add two this line
+         importance: Importance.max,
+          priority: Priority.high,
+          "id 1", //channel id
+          "basic notification ", //cahnnel name
+       ),
     );
-    await  flutterLocalNotificationsPlugin.show(0, "Basic Notification", "Body Notification", details);
-     }
-
-
+    await flutterLocalNotificationsPlugin.show(
+        0, //id
+        "Basic Notification", //title
+        "Body Notification", //body
+        details,
+        payload: "Payload Data");
+  }
 }
