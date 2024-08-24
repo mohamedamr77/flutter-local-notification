@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -77,16 +80,23 @@ class LocalNotificationService {
       ),
     );
 
-    // initialize time zone
     tz.initializeTimeZones();
-
+     // tz.setLocalLocation(tz.getLocation('Africa/Cairo'));
+    log(tz.local.name);
+    log(tz.TZDateTime.now(tz.local).hour.toString());
+    log(tz.TZDateTime.now(tz.local).minute.toString());
     await flutterLocalNotificationsPlugin.zonedSchedule(
         2,
         "Scheduled Notification",
         "Body Scheduled ",
-
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)),
-
+        tz.TZDateTime(
+          tz.local,  // Timezone
+          2024,      // Year
+          8,         // Month (February)
+          24,         // Day
+          20,         // Hour
+          34,
+        ),
         details,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
     );
