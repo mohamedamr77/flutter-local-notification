@@ -6,14 +6,16 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange,
-          title: Text("Local Notification ",style: TextStyle(
+        title: const Text(
+          "Local Notification ",
+          style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
           ),
-          ),
+        ),
       ),
       body: Center(
         child: Column(
@@ -21,15 +23,18 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ListTile(
-              onTap: (){
+              onTap: () {
                 LocalNotificationService.showBasicNotification();
               },
-              leading: Icon(Icons.notifications),
-              title: Text("Basic Notification"),
-               trailing: IconButton(
-                 onPressed: (){},
-                 icon: const Icon(Icons.notifications_off,color: Colors.red,),
-               ) ,
+              leading: const Icon(Icons.notifications),
+              title: const Text("Basic Notification"),
+              trailing: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.notifications_off,
+                  color: Colors.red,
+                ),
+              ),
             )
           ],
         ),
