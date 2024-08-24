@@ -1,6 +1,6 @@
 import 'dart:developer';
+import 'package:flutter_timezone/flutter_timezone.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -81,10 +81,10 @@ class LocalNotificationService {
     );
 
     tz.initializeTimeZones();
-     // tz.setLocalLocation(tz.getLocation('Africa/Cairo'));
-    log(tz.local.name);
-    log(tz.TZDateTime.now(tz.local).hour.toString());
-    log(tz.TZDateTime.now(tz.local).minute.toString());
+    final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
+    log("Before location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
+    tz.setLocalLocation(tz.getLocation(currentTimeZone));
+    log("After location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
     await flutterLocalNotificationsPlugin.zonedSchedule(
         2,
         "Scheduled Notification",
@@ -93,9 +93,9 @@ class LocalNotificationService {
           tz.local,  // Timezone
           2024,      // Year
           8,         // Month (February)
-          24,         // Day
-          20,         // Hour
-          34,
+          25,         // Day
+          0,         // Hour
+          11,
         ),
         details,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
