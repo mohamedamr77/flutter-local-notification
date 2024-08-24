@@ -3,6 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class LocalNotificationService {
 
   static FlutterLocalNotificationsPlugin  flutterLocalNotificationsPlugin=FlutterLocalNotificationsPlugin();
+     static onTap (NotificationResponse notificationResponse) { }
 
   static   Future init() async{
       InitializationSettings settings=   const InitializationSettings(
@@ -12,8 +13,8 @@ class LocalNotificationService {
       );
      flutterLocalNotificationsPlugin.initialize(
          settings,
-         onDidReceiveNotificationResponse: (details) {},
-         onDidReceiveBackgroundNotificationResponse: (details) { },
+         onDidReceiveNotificationResponse: onTap,
+         onDidReceiveBackgroundNotificationResponse: onTap,
      );
     }
 
