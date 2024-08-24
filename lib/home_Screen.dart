@@ -22,6 +22,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
             ListTile(
               onTap: () {
                 LocalNotificationService.showBasicNotification();
@@ -29,7 +30,26 @@ class HomeScreen extends StatelessWidget {
               leading: const Icon(Icons.notifications),
               title: const Text("Basic Notification"),
               trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  LocalNotificationService.cancelNotification(id: 0);
+                },
+                icon: const Icon(
+                  Icons.notifications_off,
+                  color: Colors.red,
+                ),
+              ),
+            ) ,
+
+            ListTile(
+              onTap: () {
+                LocalNotificationService.showRepeatedNotification();
+                },
+              leading: const Icon(Icons.notifications),
+              title: const Text("Repeated Notification"),
+              trailing: IconButton(
+                onPressed: () {
+                  LocalNotificationService.cancelNotification(id: 1);
+                },
                 icon: const Icon(
                   Icons.notifications_off,
                   color: Colors.red,

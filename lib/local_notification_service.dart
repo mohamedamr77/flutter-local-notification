@@ -38,4 +38,29 @@ class LocalNotificationService {
         details,
         payload: "Payload Data");
   }
+
+  static void showRepeatedNotification() async {
+    NotificationDetails details = const NotificationDetails(
+      android: AndroidNotificationDetails(
+        // line 27 and 28 to show notification above screen
+        //delte storage before add two this line
+        importance: Importance.max,
+        priority: Priority.high,
+        "id 2", //channel id
+        "Repeated notification ", //cahnnel name
+      ),
+    );
+    await flutterLocalNotificationsPlugin.periodicallyShow(
+        1, //id
+        "Repeated Notification", //title
+        "Repeated Body", //body
+        RepeatInterval.everyMinute,
+        details,
+        payload: "Payload Data");
+  }
+
+  static void cancelNotification({required int id})async{
+    await flutterLocalNotificationsPlugin.cancel(id);
+  }
+
 }
