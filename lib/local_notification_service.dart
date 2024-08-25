@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -7,10 +8,10 @@ import 'package:timezone/timezone.dart' as tz;
 class LocalNotificationService {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-
+  static StreamController<NotificationResponse> streamController=StreamController();
   static onTap(NotificationResponse notificationResponse) {
-    log(notificationResponse.id.toString());
-    log(notificationResponse.payload.toString());
+    streamController.add(notificationResponse);
+
   }
 
   static Future init() async {
