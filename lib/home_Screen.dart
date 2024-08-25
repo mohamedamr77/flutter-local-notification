@@ -1,7 +1,7 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutterlocalnotification/local_notification_service.dart';
+import 'package:flutterlocalnotification/notification_details.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,20 +12,27 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  void listenNotificationStream(){
-    LocalNotificationService.streamController.stream.listen((notificationResponse) {
-     log(notificationResponse.id.toString());
-     log(notificationResponse.payload.toString());
-   },
-   );
- }
+
 
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     listenNotificationStream();
   }
+  void listenNotificationStream(){
+    LocalNotificationService.streamController.stream.listen((notificationResponse) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationDetailsScreen(
+          id: notificationResponse.id,
+          body: notificationResponse.payload,
+          title: notificationResponse.input),
 
+      ));
+      log(notificationResponse.id.toString());
+      log(notificationResponse.payload.toString());
+    },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 24,
           ),
         ),
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>  const NotificationDetailsScreen(id: 1, body: 'mohamed', title: 'amr',),));
+          }, icon: const Icon(Icons.arrow_forward_ios))
+        ],
       ),
       body: Center(
         child: Column(
