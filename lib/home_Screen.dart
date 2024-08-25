@@ -72,7 +72,14 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.red,
                 ),
               ),
-            )
+            ),
+
+            ElevatedButton(
+                onPressed: (){
+            LocalNotificationService.cancelAll();
+            },
+                child: const Text("Cancel All")),
+
           ],
         ),
       ),

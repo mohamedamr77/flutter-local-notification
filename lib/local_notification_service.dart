@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:flutter_timezone/flutter_timezone.dart';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -76,7 +75,7 @@ class LocalNotificationService {
         importance: Importance.max,
         priority: Priority.high,
         "id 3", //channel id
-        "Repeated notification ", //cahnnel name
+        "Scheduled notification ", //Channel name
       ),
     );
 
@@ -95,11 +94,23 @@ class LocalNotificationService {
           8,         // Month (February)
           25,         // Day
           0,         // Hour
-          11,
+          39,
         ),
         details,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
     );
   }
 
+  static void cancelAll()async{
+ await   flutterLocalNotificationsPlugin.cancelAll();
+  }
+
+  // Request notification permission on Android 13 and higher
+   static  requestPermission() {
+     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+     FlutterLocalNotificationsPlugin();
+     flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+         AndroidFlutterLocalNotificationsPlugin>()
+         ?.requestNotificationsPermission();
+   }
 }

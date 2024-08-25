@@ -7,6 +7,8 @@ import 'local_notification_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNotificationService.init();
+  // for android 13 and higher  line 11
+  LocalNotificationService.requestPermission();
   runApp(const MyApp());
 }
 
