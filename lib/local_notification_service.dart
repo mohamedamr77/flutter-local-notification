@@ -8,10 +8,10 @@ import 'package:timezone/timezone.dart' as tz;
 class LocalNotificationService {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-  static StreamController<NotificationResponse> streamController=StreamController();
+  static StreamController<NotificationResponse> streamController =
+      StreamController();
   static onTap(NotificationResponse notificationResponse) {
     streamController.add(notificationResponse);
-
   }
 
   static Future init() async {
@@ -30,22 +30,21 @@ class LocalNotificationService {
   //Basic notification
 
   static void showBasicNotification() async {
-    NotificationDetails details =  NotificationDetails(
+    NotificationDetails details = NotificationDetails(
       android: AndroidNotificationDetails(
-        importance: Importance.max,
-        priority: Priority.high,
-        "id 1", //channel id
-        "basic notification ",
-        sound: RawResourceAndroidNotificationSound('sally.mp3'.split('.').first)
-      ),
+          importance: Importance.max,
+          priority: Priority.high,
+          "id 1", //channel id
+          "basic notification ",
+          sound: RawResourceAndroidNotificationSound(
+              'sally.mp3'.split('.').first)),
     );
     await flutterLocalNotificationsPlugin.show(
         0, //id
         "Basic Notification", //title
         "Body Notification", //body
         details,
-        payload: "Payload Data"
-    );
+        payload: "Payload Data");
   }
 
   static void showRepeatedNotification() async {
@@ -68,29 +67,29 @@ class LocalNotificationService {
         payload: "Payload Data");
   }
 
-  static void cancelNotification({required int id})async{
+  static void cancelNotification({required int id}) async {
     await flutterLocalNotificationsPlugin.cancel(id);
   }
 
   static void showScheduledNotification() async {
-    NotificationDetails details =  NotificationDetails(
+    NotificationDetails details = NotificationDetails(
       android: AndroidNotificationDetails(
-        importance: Importance.max,
-        priority: Priority.high,
-        "id 3", //channel id
-        "Scheduled notification ", //Channel name
-          sound: RawResourceAndroidNotificationSound('sally.mp3'.split('.').first)
-      ),
+          importance: Importance.max,
+          priority: Priority.high,
+          "id 3", //channel id
+          "Scheduled notification ", //Channel name
+          sound: RawResourceAndroidNotificationSound(
+              'sally.mp3'.split('.').first)),
     );
 
-     tz.initializeTimeZones();
+    tz.initializeTimeZones();
 
-     final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
+    final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
 
-     log("Before location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
-      tz.setLocalLocation(tz.getLocation(currentTimeZone));
-     log("After location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
-          /*
+    log("Before location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
+    tz.setLocalLocation(tz.getLocation(currentTimeZone));
+    log("After location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
+    /*
  tz.TZDateTime(
           tz.local,  // Timezone
           2024,      // Year
@@ -106,20 +105,21 @@ class LocalNotificationService {
         tz.TZDateTime.now(tz.local).add(const Duration(seconds: 3)),
         details,
         payload: "Zone scheduled",
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
-    );
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
   }
 
-  static void cancelAll()async{
- await   flutterLocalNotificationsPlugin.cancelAll();
+  static void cancelAll() async {
+    await flutterLocalNotificationsPlugin.cancelAll();
   }
 
   // Request notification permission on Android 13 and higher
-   static  requestPermission() {
-     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-     FlutterLocalNotificationsPlugin();
-     flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-         AndroidFlutterLocalNotificationsPlugin>()
-         ?.requestNotificationsPermission();
-   }
+  static requestPermission() {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
+  }
 }

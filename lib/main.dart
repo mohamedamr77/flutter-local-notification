@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'home_Screen.dart';
 import 'local_notification_service.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNotificationService.init();

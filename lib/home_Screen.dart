@@ -11,28 +11,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
-
   @override
   void initState() {
     super.initState();
     // TODO: implement initState
     listenNotificationStream();
   }
-  void listenNotificationStream(){
-    LocalNotificationService.streamController.stream.listen((notificationResponse) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationDetailsScreen(
-          id: notificationResponse.id,
-          body: notificationResponse.payload,
-          title: notificationResponse.input),
 
-      ));
-      log(notificationResponse.id.toString());
-      log(notificationResponse.payload.toString());
-    },
+  void listenNotificationStream() {
+    LocalNotificationService.streamController.stream.listen(
+      (notificationResponse) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NotificationDetailsScreen(
+                  id: notificationResponse.id,
+                  body: notificationResponse.payload,
+                  title: notificationResponse.input),
+            ));
+        log(notificationResponse.id.toString());
+        log(notificationResponse.payload.toString());
+      },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,9 +48,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         actions: [
-          IconButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) =>  const NotificationDetailsScreen(id: 1, body: 'mohamed', title: 'amr',),));
-          }, icon: const Icon(Icons.arrow_forward_ios))
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationDetailsScreen(
+                        id: 1,
+                        body: 'mohamed',
+                        title: 'amr',
+                      ),
+                    ));
+              },
+              icon: const Icon(Icons.arrow_forward_ios))
         ],
       ),
       body: Center(
@@ -56,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             ListTile(
               onTap: () {
                 LocalNotificationService.showBasicNotification();
@@ -72,12 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.red,
                 ),
               ),
-            ) ,
-
+            ),
             ListTile(
               onTap: () {
                 LocalNotificationService.showRepeatedNotification();
-                },
+              },
               leading: const Icon(Icons.notifications),
               title: const Text("Repeated Notification"),
               trailing: IconButton(
@@ -90,11 +100,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-
             ListTile(
               onTap: () {
                 LocalNotificationService.showScheduledNotification();
-                },
+              },
               leading: const Icon(Icons.notifications),
               title: const Text("Scheduled Notification"),
               trailing: IconButton(
@@ -107,13 +116,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-
             ElevatedButton(
-                onPressed: (){
-            LocalNotificationService.cancelAll();
-            },
+                onPressed: () {
+                  LocalNotificationService.cancelAll();
+                },
                 child: const Text("Cancel All")),
-
           ],
         ),
       ),
