@@ -80,10 +80,10 @@ class LocalNotificationService {
     );
 
     tz.initializeTimeZones();
-    final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
-    log("Before location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
-    tz.setLocalLocation(tz.getLocation(currentTimeZone));
-    log("After location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
+     final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
+     log("Before location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
+      tz.setLocalLocation(tz.getLocation(currentTimeZone));
+     log("After location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
     await flutterLocalNotificationsPlugin.zonedSchedule(
         2,
         "Scheduled Notification",
@@ -93,8 +93,8 @@ class LocalNotificationService {
           2024,      // Year
           8,         // Month (February)
           25,         // Day
-          0,         // Hour
-          39,
+          14,         // Hour
+          5,
         ),
         details,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
