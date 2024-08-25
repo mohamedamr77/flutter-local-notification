@@ -31,6 +31,9 @@ class LocalNotificationService {
         priority: Priority.high,
         "id 1", //channel id
         "basic notification ",
+         /*
+           note :  the sound in asset must be same the name the sound in res in main in android
+         */
         sound: RawResourceAndroidNotificationSound('sally.mp3'.split('.').first)
       ),
     );
@@ -67,18 +70,18 @@ class LocalNotificationService {
   }
 
   static void showScheduledNotification() async {
-    NotificationDetails details = const NotificationDetails(
+    NotificationDetails details =  NotificationDetails(
       android: AndroidNotificationDetails(
-        // line 27 and 28 to show notification above screen
-        //delte storage before add two this line
         importance: Importance.max,
         priority: Priority.high,
         "id 3", //channel id
         "Scheduled notification ", //Channel name
+          sound: RawResourceAndroidNotificationSound('sally.mp3'.split('.').first)
       ),
     );
 
-    tz.initializeTimeZones();
+     tz.initializeTimeZones();
+
      final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
      log("Before location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
       tz.setLocalLocation(tz.getLocation(currentTimeZone));
@@ -93,7 +96,7 @@ class LocalNotificationService {
           8,         // Month (February)
           25,         // Day
           14,         // Hour
-          5,
+          36,
         ),
         details,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
