@@ -7,7 +7,11 @@ import 'package:timezone/timezone.dart' as tz;
 class LocalNotificationService {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-  static onTap(NotificationResponse notificationResponse) {}
+
+  static onTap(NotificationResponse notificationResponse) {
+    log(notificationResponse.id.toString());
+    log(notificationResponse.payload.toString());
+  }
 
   static Future init() async {
     InitializationSettings settings = const InitializationSettings(
@@ -31,9 +35,6 @@ class LocalNotificationService {
         priority: Priority.high,
         "id 1", //channel id
         "basic notification ",
-         /*
-           note :  the sound in asset must be same the name the sound in res in main in android
-         */
         sound: RawResourceAndroidNotificationSound('sally.mp3'.split('.').first)
       ),
     );
@@ -42,7 +43,8 @@ class LocalNotificationService {
         "Basic Notification", //title
         "Body Notification", //body
         details,
-        payload: "Payload Data");
+        payload: "Payload Data"
+    );
   }
 
   static void showRepeatedNotification() async {
@@ -83,22 +85,26 @@ class LocalNotificationService {
      tz.initializeTimeZones();
 
      final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
+
      log("Before location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
       tz.setLocalLocation(tz.getLocation(currentTimeZone));
      log("After location ${tz.local.name} , hour : ${tz.TZDateTime.now(tz.local).hour.toString()} , minute : ${tz.TZDateTime.now(tz.local).minute.toString()}");
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-        2,
-        "Scheduled Notification",
-        "Body Scheduled ",
-        tz.TZDateTime(
+          /*
+ tz.TZDateTime(
           tz.local,  // Timezone
           2024,      // Year
           8,         // Month (February)
           25,         // Day
-          14,         // Hour
-          36,
-        ),
+          15,         // Hour
+          5,
+        ),           */
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        2,
+        "Scheduled Notification",
+        "Body Scheduled ",
+        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 3)),
         details,
+        payload: "Zone scheduled",
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
     );
   }
