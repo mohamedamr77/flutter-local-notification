@@ -24,10 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => NotificationDetailsScreen(
-                  id: notificationResponse.id,
-                  body: notificationResponse.payload,
-                  title: notificationResponse.input),
+              builder: (context) => NotificationDetailsScreen(notificationResponse: notificationResponse,),
             ));
         log(notificationResponse.id.toString());
         log(notificationResponse.payload.toString());
@@ -50,15 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NotificationDetailsScreen(
-                        id: 1,
-                        body: 'mohamed',
-                        title: 'amr',
-                      ),
-                    ));
+
               },
               icon: const Icon(Icons.arrow_forward_ios))
         ],

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationDetailsScreen extends StatelessWidget {
   const NotificationDetailsScreen(
-      {super.key, required this.id, required this.body, required this.title});
-  final int? id;
-  final String? body;
-  final String? title;
+      {super.key, required this.notificationResponse,});
+  final NotificationResponse notificationResponse;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,19 +17,13 @@ class NotificationDetailsScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("id Notification  :$id"),
+          Text("id Notification  :${notificationResponse.id}"),
           const SizedBox(
             height: 40,
           ),
-          Text("title Notification  :$title"),
-          const SizedBox(
-            height: 40,
-          ),
-          Text("body Notification  :$body"),
-          const SizedBox(
-            height: 40,
-          ),
-        ],
+          Text("title Notification  :${notificationResponse.payload}"),
+          ]
+
       ),
     );
   }
