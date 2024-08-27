@@ -5,7 +5,11 @@ class WorkManagerService {
   void regesterMyTask() async {
     // unigue name = > عشان لو عايز اقفل التاسك دى او اعمل اى عمليات عليها
 
-    await Workmanager().registerOneOffTask("id 1", "show simple notification");
+    await Workmanager().registerPeriodicTask(
+        "id 1",
+        "show simple notification",
+      frequency: const Duration(seconds: 15),
+    );
   }
 
   Future<void> init() async {
